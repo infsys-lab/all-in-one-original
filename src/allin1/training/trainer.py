@@ -72,7 +72,13 @@ class AllInOneTrainer(LightningModule):
         if new_lr < old_lr:
           print(f'=> The LR is decayed from {old_lr} to {new_lr}. '
                 f'Loading the best model: {self.cfg.eval_metric}={self.trainer.checkpoint_callback.best_model_score}')
-          self.load_from_checkpoint(self.trainer.checkpoint_callback.best_model_path, cfg=self.cfg)
+          # self.load_from_checkpoint(self.trainer.checkpoint_callback.best_model_path, cfg=self.cfg)
+          if self.trainer.checkpoint_callback.best_model_path:
+            best_model = AllInOneTrainer.load_from_checkpoint(
+            self.trainer.checkpoint_callback.best_model_path, cfg=self.cfg
+                )
+            self.model = best_model  # Assign loaded model to self.model
+
       elif self.current_epoch + 1 <= self.cfg.warmup_epochs:
         self.scheduler.step(epoch=self.current_epoch + 1)
     else:
@@ -311,8 +317,14 @@ class AllInOneTrainer(LightningModule):
     print('=> Fit ended.')
     if self.trainer.is_global_zero and self.trainer.checkpoint_callback.best_model_path:
       print('=> Loading best model...')
-      self.load_from_checkpoint(self.trainer.checkpoint_callback.best_model_path, cfg=self.cfg)
-      print('=> Loaded best model.')
+      if self.trainer.is_global_zero and self.trainer.checkpoint_callback.best_model_path:
+        print('=> Loading best model...')
+        best_model = AllInOneTrainer.load_from_checkpoint(
+            self.trainer.checkpoint_callback.best_model_path, cfg=self.cfg
+        )
+        self.model = best_model  # Assign loaded model
+        print('=> Loaded best model.')
+
 
 
 def prefix_dict(d: Dict, prefix: str):
