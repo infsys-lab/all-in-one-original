@@ -96,9 +96,11 @@ class DatasetBase(Dataset, ABC):
       true_downbeat_times = true_downbeat_times[(start <= true_downbeat_times) & (true_downbeat_times < end_time)]
       true_section_times = true_section_times[(start <= true_section_times) & (true_section_times < end_time)]
 
-      true_beat_times -= start
-      true_downbeat_times -= start
-      true_section_times -= start
+      start = np.float64(start)  # Ensure start is float64
+      true_beat_times = true_beat_times.astype(np.float64) - start
+      true_downbeat_times = true_downbeat_times.astype(np.float64) - start
+      true_section_times = true_section_times.astype(np.float64) - start
+
 
     return dict(
       track_key=track_id,
