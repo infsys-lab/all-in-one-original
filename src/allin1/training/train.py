@@ -22,7 +22,7 @@ def main(cfg: Config):
   # leading to training that may not converge.
   lightning.seed_everything(cfg.seed)
 
-  if cfg.data.name == 'harmonix':
+  if cfg.data.name == 'files':
     dm = HarmonixDataModule(cfg)
   else:
     raise ValueError(f'Unknown dataset: {cfg.data.name}')
