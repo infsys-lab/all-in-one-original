@@ -41,7 +41,7 @@ class HarmonixDataModule(LightningDataModule):
       self.dataset_train,
       batch_size=self.cfg.batch_size,
       shuffle=True,
-      num_workers=0 if self.cfg.debug else 2,
+      num_workers=0 if self.cfg.debug else 0,
       collate_fn=collate_fn,
     )
   
@@ -50,7 +50,7 @@ class HarmonixDataModule(LightningDataModule):
       self.dataset_val,
       batch_size=1,
       shuffle=False,
-      num_workers=0 if self.cfg.debug else 1,
+      num_workers=0 if self.cfg.debug else 0,
       collate_fn=collate_fn,
     )
   
@@ -59,7 +59,7 @@ class HarmonixDataModule(LightningDataModule):
       self.dataset_test,
       batch_size=1,
       shuffle=False,
-      num_workers=0 if self.cfg.debug else 1,
+      num_workers=0 if self.cfg.debug else 0,
       collate_fn=collate_fn,
     )
   
