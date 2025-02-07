@@ -52,7 +52,7 @@ class HarmonixConverter(DatasetConverter):
     )
     self.df_downbeat = self.df_beat[self.df_beat['count'] == 1]
     self.df_section = pd.read_csv(
-      self.base_dir / 'segments' / f'{self.track_id}.txt',
+      self.base_dir / 'ground_truth' / f'{self.track_id}.txt',
       names=['start', 'name'],
       delimiter='\t',
     )
