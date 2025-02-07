@@ -39,7 +39,7 @@ class DataConfig:
 
 @dataclass
 class HarmonixConfig(DataConfig):
-  name: str = 'harmonix'
+  name: str = 'files'
 
   demixed: bool = True
   num_instruments: int = 4
@@ -58,7 +58,7 @@ class HarmonixConfig(DataConfig):
 
 defaults = [
   '_self_',
-  {'data': 'harmonix'},
+  {'data': 'files'},
 ]
 
 
