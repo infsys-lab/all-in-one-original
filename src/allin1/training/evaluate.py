@@ -52,7 +52,7 @@ def evaluate(
     run = wandb.run
 
   print('=> Creating data module...')
-  if cfg.data.name == 'harmonix':
+  if cfg.data.name == 'files':
     dm = HarmonixDataModule(cfg)
   else:
     raise ValueError(f'Unknown dataset: {cfg.data.name}')
